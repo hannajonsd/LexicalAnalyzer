@@ -1,0 +1,34 @@
+program		=	function, { function }
+			;
+
+function	= 	NAME, '(', [ NAME, { ',', NAME } ] ')'
+				'{', { decl, ';' }, { expr, ';' }, '}'
+			;
+
+decl		=	'var', NAME, { ',', NAME }
+			;
+
+expr		=	'return', expr
+			|	NAME, '=', expr
+			|	binopexpr
+			;
+
+binopexpr	=	smallexpr, { OPNAME, smallexpr }
+			;
+
+smallexpr	=	NAME
+			|	NAME, '(', [ expr, { ',', expr } ], ')'
+			|	OPNAME, smallexpr
+			| 	LITERAL 
+			|	'(', expr, ')'
+			|	ifexpr
+			|	'while', '(', expr, ')', body
+			|	body
+			;
+
+ifexpr 		=	'if', '(', expr, ')', body, 
+				[ 'else', ( body | ifexpr ) ]
+			;
+
+body		=	'{', { expr, ';' }, '}'
+			;
