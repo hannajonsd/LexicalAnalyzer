@@ -1,9 +1,9 @@
 %%
 
 %public
-%class NanoLispLexer
-%implements NanoLisp.Lexer	
-//%implements Driver.Lexer		/* Use this if the hand-written driver is used */
+%class NanoMorphoLexer
+%implements NanoMorpho.Lexer	
+// %implements Driver.Lexer		/* Use this if the hand-written driver is used */
 %unicode
 %line
 %column
@@ -42,12 +42,14 @@
 		case LITERAL:	return "LITERAL";
 		case NAME:		return "NAME";
 		case IF:		return "IF";
-		case DEFINE:	return "DEFINE";
+		case ELSE:		return "ELSE";
 		case YYERRCODE:	return "YYERRCODE";
 		case DELIM:		return "DELIM";
 		case QUOTE:	return "QUOTE";
 		case WHILE:	return "WHILE";
 		case FOR:	return "FOR";
+		case VAR:    return "VAR";
+		case FUN:	 return "FUN";
 		}
 		return "unknown";
 	}
@@ -65,8 +67,9 @@ _FLOAT={_DIGIT}+\.{_DIGIT}+([eE][+-]?{_DIGIT}+)?
 _INT={_DIGIT}+
 _STRING=\"([^\"\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|\\[0-7][0-7]|\\[0-7])*\"
 _CHAR=\'([^\'\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|(\\[0-7][0-7])|(\\[0-7]))\'
-_DELIM=[,:;.\-(){}\[\] = - + * / ! % & = > < : \^ ~ & | ? _]
-_NAME=([:letter:]|[\+\-*/!%&=><\:\^\~&|?]|{_DIGIT})+
+_DELIM=[,:;.\-(){}\[\]]
+_NAME=([:letter:]|{_DIGIT})+
+_OPNAME=[\+\-*/!%&=><\:\^\~&|?]+
 _QUOTE=\'
 
 %%
@@ -90,25 +93,43 @@ _QUOTE=\'
 	return IF;
 }
 
-"define" {
+"else" {
 	yylval = yytext();
-	return DEFINE;
+	return ELSE;
 }
+
 "while" {
 	yylval = yytext();
 	return WHILE;
 }
+
 "for" {
 	yylval = yytext();
 	return FOR;
 }
+
+"fun" {
+	yylval = yytext();
+	return FUN;
+}
+
 
 {_NAME} {
 	yylval = yytext();
 	return NAME;
 }
 
-";".*$ {
+{_OPNAME}+ {
+	yylval = yytext();
+	return NAME;
+}
+
+"var" {
+    yylval = yytext();
+    return VAR;
+}
+
+";;;".*$ {
 }
 
 [ \t\r\n\f] {

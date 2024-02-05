@@ -1,11 +1,9 @@
 import java.io.*;
 
-public class Driver
-{
+public class Driver {
 	// This interface describes how bison-generated
 	// parsers using Java want a lexer to behave.
-	public interface Lexer
-	{
+	public interface Lexer {
 		// Token values
 		public static final int EOF = 0;
 		static final int LITERAL = 258;
@@ -17,47 +15,61 @@ public class Driver
 		static final int QUOTE = 264;
 		static final int FOR = 265;
 		static final int WHILE = 266;
+		static final int ELSE = 267;
+		static final int VAR = 268;
+		static final int FUN = 269;
+
 		// In addition to the above token values
 		// we may have additional one character
 		// tokens such as '(' and ')'.
 		Object getLVal();
-		int yylex () throws java.io.IOException;
-		void yyerror( String msg );
+
+		int yylex() throws java.io.IOException;
+
+		void yyerror(String msg);
 	}
-	
-	public String getTokenName( int token )
-	{
-		switch( token )
-		{
-		case Lexer.EOF:			return "end-of-file";
-		case Lexer.LITERAL:		return "LITERAL";
-		case Lexer.NAME:		return "NAME";
-		case Lexer.IF:			return "IF";
-		case Lexer.DEFINE:		return "DEFINE";
-		case Lexer.YYERRCODE:	return "YYERRCODE";
-		case Lexer.DELIM:		return "DELIM";
-		case Lexer.QUOTE:		return "QUOTE";
-		case Lexer.FOR:		return "FOR";
-		case Lexer.WHILE:		return "WHILE";
+
+	public String getTokenName(int token) {
+		switch (token) {
+			case Lexer.EOF:
+				return "end-of-file";
+			case Lexer.LITERAL:
+				return "LITERAL";
+			case Lexer.NAME:
+				return "NAME";
+			case Lexer.IF:
+				return "IF";
+			// case Lexer.DEFINE:
+			// return "DEFINE";
+			case Lexer.YYERRCODE:
+				return "YYERRCODE";
+			case Lexer.DELIM:
+				return "DELIM";
+			case Lexer.QUOTE:
+				return "QUOTE";
+			case Lexer.FOR:
+				return "FOR";
+			case Lexer.WHILE:
+				return "WHILE";
+			case Lexer.ELSE:
+				return "ELSE";
+			case Lexer.VAR:
+				return "VAR";
 		}
 		return "unknown";
 	}
 
-	public static void main( String[] args ) throws Exception
-	{
-		NanoLispLexer l = new NanoLispLexer(new FileReader(args[0]));
-		try
-		{
+	public static void main(String[] args) throws Exception {
+		NanoMorphoLexer l = new NanoMorphoLexer(new FileReader(args[0]));
+		try {
 			int token = l.yylex();
-			while( token != Lexer.EOF )
-			{
-				if( token == l.YYERRCODE ) l.yyerror("Invalid lexeme");
-				l.show(l.getTokenName(token),(String)l.getLVal());
+			while (token != Lexer.EOF) {
+				if (token == l.YYERRCODE)
+					l.yyerror("Invalid lexeme");
+				l.show(l.getTokenName(token), (String) l.getLVal());
 				token = l.yylex();
 			}
-		}
-		catch( Exception e )
-		{
+		} catch (Exception e) {
 			l.yyerror(e.getMessage());
 		}
 	}

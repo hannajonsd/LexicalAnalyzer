@@ -1,0 +1,24 @@
+var a = 15.0;
+var t = turtle();
+var d = 0.0005;
+var ratio = 1.01;
+while( t.x*t.x+t.y*t.y < 1.0 )
+{
+    t.forward(d);                   ;;; forward and draw a line
+    sleep(0.001);                   ;;; wait
+    t.turn(a);                      ;;; turn a degrees to left
+    sleep(0.001);                   ;;; wait
+    d = d*ratio;                    ;;; increase step length by fixed ratio
+};
+
+startTask(
+    fun()
+    {
+        var i;
+        for( i=0 ; i!=10 ; i=inc(i) )
+        {
+            sleep(1.0);
+            writeln(i);
+        };
+    }
+);
