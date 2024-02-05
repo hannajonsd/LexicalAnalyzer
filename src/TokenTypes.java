@@ -1,7 +1,0 @@
-package src;
-
-public enum TokenTypes {
-    IF, ELSE, WHILE, INT, IDENTIFIER, NUMBER,
-    EQUALS, ASSIGN, PLUS, MINUS, STAR, SLASH,
-    LPAREN, RPAREN, SEMICOLON
-}
