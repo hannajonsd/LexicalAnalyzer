@@ -52,7 +52,7 @@ public class NanoMorpho {
     /** Token number,to be returned by the scanner. */
     static final int IF = 260;
     /** Token number,to be returned by the scanner. */
-    static final int DEFINE = 261;
+
     /** Token number,to be returned by the scanner. */
     static final int YYERRCODE = 262;
     static final int DELIM = 263;
@@ -62,6 +62,11 @@ public class NanoMorpho {
     static final int ELSE = 267;
     static final int VAR = 268;
     static final int FUN = 269;
+    static final int REC = 270;
+    static final int VAL = 271;
+    static final int RETURN = 272;
+    static final int OPNAME = 273;
+    static final int ELSEIF = 274;
 
     /**
      * Method to retrieve the semantic value of the last scanned token.

@@ -22,3 +22,32 @@ startTask(
         };
     }
 );
+
+rec fun map(f,x)
+{
+	if( x==[] )
+	{
+		;;; The result from mapping a function on the empty list is,
+		;;; of course, the empty list.
+		return [];
+	}
+	else if(x==0)
+	{
+		;;; The head of the result is the result from applying
+		;;; the argument function to the head of the argument list.
+		;;; The tail of the result is the result from mapping the
+		;;; argument function to the tail of the argument list.
+		return []
+	}
+	else
+	{
+		return head(x)
+	}
+};
+;;; Compute the squares of a list two ways.
+val f = fun(x) {x*x;};
+val x = [1,2,3,4];
+writeln(map(f,x));
+writeln(map(fun(x){x*x;},[1,2,3,4]));
+
+

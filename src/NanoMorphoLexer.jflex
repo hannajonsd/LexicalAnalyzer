@@ -50,6 +50,11 @@
 		case FOR:	return "FOR";
 		case VAR:    return "VAR";
 		case FUN:	 return "FUN";
+		case REC:	 return "REC";
+		case RETURN: return "RETURN";
+		case VAL:	 return "VAL";
+		case OPNAME:	return "OPNAME";
+		case ELSEIF:	return "ELSEIF";
 		}
 		return "unknown";
 	}
@@ -67,7 +72,7 @@ _FLOAT={_DIGIT}+\.{_DIGIT}+([eE][+-]?{_DIGIT}+)?
 _INT={_DIGIT}+
 _STRING=\"([^\"\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|\\[0-7][0-7]|\\[0-7])*\"
 _CHAR=\'([^\'\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|(\\[0-7][0-7])|(\\[0-7]))\'
-_DELIM=[,:;.\-(){}\[\]]
+_DELIM=[,:;.\-(){}\[\]=]
 _NAME=([:letter:]|{_DIGIT})+
 _OPNAME=[\+\-*/!%&=><\:\^\~&|?]+
 _QUOTE=\'
@@ -118,14 +123,33 @@ _QUOTE=\'
     return VAR;
 }
 
+"rec" {
+	yylval = yytext();
+	return REC;
+}
+
+"return" {
+	yylval = yytext();
+	return RETURN;
+}
+
+"val" {
+	yylval = yytext();
+	return VAL;
+}
+"else if" {
+	yylval = yytext();
+	return ELSEIF;
+}
+
 {_NAME} {
 	yylval = yytext();
 	return NAME;
 }
 
-{_OPNAME}+ {
+{_OPNAME} {
 	yylval = yytext();
-	return NAME;
+	return OPNAME;
 }
 
 ";;;".*$ {

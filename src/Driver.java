@@ -21,6 +21,8 @@ public class Driver {
 		static final int REC = 270;
 		static final int VAL = 271;
 		static final int RETURN = 272;
+		static final int OPNAME = 273;
+		static final int ELSEIF = 274;
 
 		// In addition to the above token values
 		// we may have additional one character
@@ -42,8 +44,6 @@ public class Driver {
 				return "NAME";
 			case Lexer.IF:
 				return "IF";
-			// case Lexer.DEFINE:
-			// return "DEFINE";
 			case Lexer.YYERRCODE:
 				return "YYERRCODE";
 			case Lexer.DELIM:
@@ -58,7 +58,7 @@ public class Driver {
 				return "ELSE";
 			case Lexer.VAR:
 				return "VAR";
-			case Lexer.FUN: 
+			case Lexer.FUN:
 				return "FUN";
 			case Lexer.REC:
 				return "REC";
@@ -66,6 +66,10 @@ public class Driver {
 				return "VAL";
 			case Lexer.RETURN:
 				return "RETURN";
+			case Lexer.OPNAME:
+				return "OPNAME";
+			case Lexer.ELSEIF:
+				return "ELSEIF";
 		}
 		return "unknown";
 	}
