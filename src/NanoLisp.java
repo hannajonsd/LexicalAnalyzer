@@ -98,6 +98,8 @@ public class NanoLisp
     static final int YYERRCODE = 262;
     static final int DELIM = 263;
     static final int QUOTE = 264;
+    static final int FOR = 265;
+    static final int WHILE = 266;
 
 
     

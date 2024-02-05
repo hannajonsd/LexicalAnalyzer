@@ -46,8 +46,8 @@
 		case YYERRCODE:	return "YYERRCODE";
 		case DELIM:		return "DELIM";
 		case QUOTE:	return "QUOTE";
-		case '(':		return "'('";
-		case ')':		return "')'";
+		case WHILE:	return "WHILE";
+		case FOR:	return "FOR";
 		}
 		return "unknown";
 	}
@@ -93,6 +93,14 @@ _QUOTE=\'
 "define" {
 	yylval = yytext();
 	return DEFINE;
+}
+"while" {
+	yylval = yytext();
+	return WHILE;
+}
+"for" {
+	yylval = yytext();
+	return FOR;
 }
 
 {_NAME} {
