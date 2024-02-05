@@ -14,6 +14,7 @@ public class Driver
 		static final int DEFINE = 261;
 		static final int YYERRCODE = 262;
 		static final int DELIM = 263;
+		static final int QUOTE = 264;
 		// In addition to the above token values
 		// we may have additional one character
 		// tokens such as '(' and ')'.
@@ -33,8 +34,7 @@ public class Driver
 		case Lexer.DEFINE:		return "DEFINE";
 		case Lexer.YYERRCODE:	return "YYERRCODE";
 		case Lexer.DELIM:		return "DELIM";
-		case '(':				return "'('";
-		case ')':				return "')'";
+		case Lexer.QUOTE:		return "QUOTE";
 		}
 		return "unknown";
 	}

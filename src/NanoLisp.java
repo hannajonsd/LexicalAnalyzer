@@ -97,6 +97,7 @@ public class NanoLisp
     /** Token number,to be returned by the scanner.  */
     static final int YYERRCODE = 262;
     static final int DELIM = 263;
+    static final int QUOTE = 264;
 
 
     

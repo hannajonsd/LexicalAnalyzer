@@ -45,6 +45,7 @@
 		case DEFINE:	return "DEFINE";
 		case YYERRCODE:	return "YYERRCODE";
 		case DELIM:		return "DELIM";
+		case QUOTE:	return "QUOTE";
 		case '(':		return "'('";
 		case ')':		return "')'";
 		}
@@ -64,14 +65,19 @@ _FLOAT={_DIGIT}+\.{_DIGIT}+([eE][+-]?{_DIGIT}+)?
 _INT={_DIGIT}+
 _STRING=\"([^\"\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|\\[0-7][0-7]|\\[0-7])*\"
 _CHAR=\'([^\'\\]|\\b|\\t|\\n|\\f|\\r|\\\"|\\\'|\\\\|(\\[0-3][0-7][0-7])|(\\[0-7][0-7])|(\\[0-7]))\'
-_DELIM=[,:;.\- () {} \\[\\]] 
+_DELIM=[,:;.\-(){}\[\] = - + * / ! % & = > < : \^ ~ & | ? _]
 _NAME=([:letter:]|[\+\-*/!%&=><\:\^\~&|?]|{_DIGIT})+
+_QUOTE=\'
 
 %%
 
 {_DELIM} {
 	yylval = yytext();
 	return DELIM;
+}
+{_QUOTE} {
+	yylval = yytext();
+	return QUOTE;
 }
 
 {_STRING} | {_FLOAT} | {_CHAR} | {_INT} | null | true | false {
