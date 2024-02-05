@@ -113,6 +113,10 @@ _QUOTE=\'
 	return FUN;
 }
 
+"var" {
+    yylval = yytext();
+    return VAR;
+}
 
 {_NAME} {
 	yylval = yytext();
@@ -122,11 +126,6 @@ _QUOTE=\'
 {_OPNAME}+ {
 	yylval = yytext();
 	return NAME;
-}
-
-"var" {
-    yylval = yytext();
-    return VAR;
 }
 
 ";;;".*$ {

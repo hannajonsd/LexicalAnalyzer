@@ -18,6 +18,9 @@ public class Driver {
 		static final int ELSE = 267;
 		static final int VAR = 268;
 		static final int FUN = 269;
+		static final int REC = 270;
+		static final int VAL = 271;
+		static final int RETURN = 272;
 
 		// In addition to the above token values
 		// we may have additional one character
@@ -55,6 +58,14 @@ public class Driver {
 				return "ELSE";
 			case Lexer.VAR:
 				return "VAR";
+			case Lexer.FUN: 
+				return "FUN";
+			case Lexer.REC:
+				return "REC";
+			case Lexer.VAL:
+				return "VAL";
+			case Lexer.RETURN:
+				return "RETURN";
 		}
 		return "unknown";
 	}
